@@ -1,0 +1,5 @@
+workspace/
+forge installator/generated_files/
+forge installator/installer.jar
+obfuscator/files/
+obfuscator/obfuscated/

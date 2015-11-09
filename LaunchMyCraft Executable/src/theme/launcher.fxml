@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.web.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="550.0" maxWidth="850.0" minHeight="550.0" minWidth="850.0" prefHeight="550.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+   <bottom>
+      <StackPane id="loginPaneBackground" prefHeight="88.0" prefWidth="850.0" stylesheets="@style.css" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="121.0" fitWidth="850.0" pickOnBounds="true">
+               <image>
+                  <Image url="@gradient.png" />
+               </image>
+            </ImageView>
+            <HBox alignment="CENTER_RIGHT" prefWidth="850.0" spacing="10.0" style="-fx-border-color: #66666666 transparent transparent transparent;" stylesheets="@style.css">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+               <children>
+                  <ImageView fitHeight="39.0" fitWidth="398.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@téléchargement.png" />
+                     </image>
+                  </ImageView>
+                  <Pane prefHeight="100.0" prefWidth="123.0" />
+                  <StackPane prefWidth="406.0">
+                     <children>
+                        <VBox alignment="CENTER_LEFT" prefHeight="22.0" prefWidth="387.0" visible="false">
+                           <children>
+                              <HBox>
+                                 <children>
+                                    <Label text="Téléchargement des ressources en cours..." textFill="WHITE" />
+                                    <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="165.0" text="(14/100)" textFill="#b2b2b2" />
+                                 </children>
+                              </HBox>
+                              <JFXProgressBar prefWidth="387.0" progress="0.14" />
+                           </children>
+                        </VBox>
+                        <HBox spacing="10.0">
+                           <children>
+                              <VBox alignment="BOTTOM_LEFT" minHeight="0.0" prefHeight="100.0" prefWidth="273.0">
+                                 <children>
+                                    <JFXTextField focusColor="GREEN" maxWidth="473.0" minWidth="202.0" prefHeight="31.0" prefWidth="473.0" promptText="Nom d'utilisateur" style="-fx-text-fill: #ffffff;" />
+                                    <JFXPasswordField focusColor="GREEN" promptText="Mot de passe" style="-fx-text-fill: #ffffff;" />
+                                    <Hyperlink alignment="CENTER_RIGHT" prefHeight="23.0" prefWidth="272.0" text="Proposé par LaunchMyCraft.fr" textFill="#b2b2b2" underline="true" />
+                                 </children>
+                              </VBox>
+                              <VBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="161.0" spacing="8.0">
+                                 <children>
+                                    <JFXButton prefHeight="25.0" prefWidth="206.0" style="-fx-background-color: lightgrey;" text="Options" />
+                                    <JFXButton prefHeight="25.0" prefWidth="235.0" style="-fx-background-color: lime;" text="Se connecter" />
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </StackPane>
+               </children>
+            </HBox>
+         </children>
+      </StackPane>
+   </bottom>
+   <center>
+      <WebView id="newsWebView" prefHeight="429.0" prefWidth="743.0" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>
