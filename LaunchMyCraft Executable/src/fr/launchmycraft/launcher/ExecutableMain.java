@@ -10,8 +10,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
+import javafx.scene.control.Hyperlink;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.Button;
+
+import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import org.w3c.dom.Node;
@@ -32,6 +36,8 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker.State;
 import javafx.embed.swing.JFXPanel;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -57,8 +63,11 @@ public class ExecutableMain
 	public static ConsoleFrame consoleFrame; //TODO A changer par du JavaFX propre
 
 	String newsUrl = "http://mcupdate.tumblr.com/";
+	
+	private ExecutableMain executableMain = this;
 
 	//TODO Remplacer les JOptionPane.showMessageDialog
+	//TODO Entrée pour valider le formulaire
 
 	public static void main(String[] args) throws IOException, JsonSyntaxException, URISyntaxException
 	{		
@@ -199,6 +208,39 @@ public class ExecutableMain
 
 							//Logo
 							setupLogo((ImageView) scene.lookup("#serverLogoImageView"));
+							
+							//Creditshyperlink
+							((Hyperlink)scene.lookup("#creditsHyperlink")).setOnAction(new EventHandler<ActionEvent>()
+							{
+								@Override
+								public void handle(ActionEvent arg0) 
+								{
+									try
+									{
+										OperatingSystem.openLink(new URI("https://www.launchmycraft.fr/"));							
+									}
+									catch (Exception ex)
+									{
+										ex.printStackTrace();
+									}
+								}							
+							});
+							
+							//Bouton des options
+							((Button) scene.lookup("#optionsButton")).setOnAction(new EventHandler<ActionEvent>()
+							{
+								@Override
+								public void handle(ActionEvent event) 
+								{
+									showOptions();								
+								}							
+							});
+							
+							//Formulaire de connexion
+							if (Util.isCrackedAllowed())
+			                {
+			                	((PasswordField) scene.lookup("#passwordField")).setPromptText("Mot de passe (facultatif)");
+			                }
 
 							//Pack
 							frame.pack();
@@ -224,6 +266,30 @@ public class ExecutableMain
 	{
 		JOptionPane.showMessageDialog(null, message, "Erreur", JOptionPane.ERROR_MESSAGE);
 		System.exit(0);
+	}
+	
+	void showOptions() //TODO Changer ça pour les optiosn en JavaFX
+	{
+		javax.swing.SwingUtilities.invokeLater(new Runnable() 
+		{
+            public void run() 
+            {       		
+        		try 
+        		{
+        			JDialog optionsDialog = new JDialog(frame, "Options", true);
+					optionsDialog.add(new OptionsPanel(executableMain));
+	        		optionsDialog.setResizable(false);
+	        		optionsDialog.pack();
+	        		optionsDialog.setLocationRelativeTo(frame);
+	        		optionsDialog.setVisible(true);
+				} 
+        		catch (Exception ex) 
+				{
+					ex.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Impossible de charger les options (" + ex.getLocalizedMessage() + ").", "Erreur", JOptionPane.ERROR_MESSAGE);
+				}
+            }
+        });
 	}
 
 	void setupLogo(ImageView view)
