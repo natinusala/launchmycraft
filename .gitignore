@@ -1,4 +1,11 @@
 workspace/
+
 forge installator/installer.jar
-obfuscator/files/
+forge installator/generated_files/*
+!forge installator/generated_files/placeholder
+forge installator/output/*
+!forge installator/output/placeholder
+
+obfuscator/files/*
+!obfuscator/files/placeholder
 obfuscator/obfuscated/*.jar
