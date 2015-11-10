@@ -281,7 +281,7 @@ public class Util {
 	public static String getLogoTextUrl(String t)
 	{
 		t = URLEncoder.encode(t);
-		return "https://launchmycraft.fr/tools/logocreator/" + t + "/38";
+		return "https://launchmycraft.fr/tools/logocreator/" + t + "/48";
 	}
 	
 	public static File getVersionFolder() throws JsonSyntaxException, IOException
@@ -562,28 +562,6 @@ public class Util {
 	{
 		return new File(OperatingSystem.getBaseWorkingDirectory(ExecutableMain.hasPaid, ExecutableMain.identifier), "config.json");
 	}
-		
-	public static JLabel getLogoJLabel(boolean resize) throws Exception
-	{
-		JLabel logo = new JLabel();
-		if (ExecutableMain.launcherDetails.containsKey("serverlogo"))
-		{
-			Util.setJLabelLogo(logo, ExecutableMain.launcherDetails.get("serverlogo"), resize);
-		}
-		else
-		{
-			if (ExecutableMain.launcherDetails.containsKey("servername"))
-			{
-				Util.setJLabelLogo(logo, getLogoTextUrl(ExecutableMain.launcherDetails.get("servername")), resize);
-			}
-			else
-			{
-				Util.setJLabelLogo(logo, Util.getDefaultLogoUrl(), false);
-			}
-		}			
-		
-		return logo;
-	}
 	
 	public static String getFileContent(FileInputStream fis, boolean shouldAddLines, boolean replaceArch) throws IOException
     {
@@ -625,33 +603,4 @@ public class Util {
 		return (ExecutableMain.launcherDetails.containsKey("allowcracked") && ExecutableMain.launcherDetails.get("allowcracked").equals("1"));
 	}
 	
-	
-	public static void setJLabelLogo(JLabel base, String u, boolean shouldEnableResize) throws Exception
-	{
-		try
-		{
-			LoggerUtils.println("Chargement de l'image : " + u);
-			URL url = new URL(u);
-			BufferedImage bimg = ImageIO.read(url);
-			Image img = bimg;		
-			
-			if (bimg.getWidth() > 250 && shouldEnableResize)
-			{
-				img = bimg.getScaledInstance(250, -1, Image.SCALE_DEFAULT);
-			}
-			
-			if (bimg.getHeight() > 60 && shouldEnableResize)
-			{
-				img = img.getScaledInstance(250, -1, Image.SCALE_DEFAULT);
-			}
-			
-			base.setIcon(new ImageIcon(img));     
-		}
-		catch (Exception ex)
-		{
-			ex.printStackTrace();
-			LoggerUtils.println("Impossible de charger l'image : " + u);
-		}
-		  
-	}
 }
