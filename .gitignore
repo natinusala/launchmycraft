@@ -1,4 +1,5 @@
-workspace/
+workspace/*
+!workspace/placeholder
 
 forge installator/installer.jar
 forge installator/generated_files/*
