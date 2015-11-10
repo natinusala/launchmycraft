@@ -61,7 +61,7 @@ public class BootstrapCore {
         frame = new JFrame("Minecraft");       
         frame.setContentPane(mainPanel);
         frame.setBackground(Color.DARK_GRAY);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(850, 550);
         frame.setResizable(false);
         

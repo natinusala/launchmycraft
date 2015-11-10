@@ -22,14 +22,9 @@ import java.util.regex.Pattern;
 
 import javax.activation.MimetypesFileTypeMap;
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-
-import net.lingala.zip4j.core.ZipFile;
-import net.lingala.zip4j.exception.ZipException;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -47,11 +42,12 @@ import fr.launchmycraft.launcher.ExecutableMain;
 import fr.launchmycraft.launcher.LoggerUtils;
 import fr.launchmycraft.launcher.OperatingSystem;
 import fr.launchmycraft.library.Configuration;
-import fr.launchmycraft.library.GameLauncher;
 import fr.launchmycraft.library.authentication.Credentials;
 import fr.launchmycraft.library.authentication.RefreshRequest;
 import fr.launchmycraft.library.authentication.RefreshResult;
 import fr.launchmycraft.library.versionning.VersionDetails;
+import net.lingala.zip4j.core.ZipFile;
+import net.lingala.zip4j.exception.ZipException;
 
 @SuppressWarnings("deprecation")
 public class Util {
