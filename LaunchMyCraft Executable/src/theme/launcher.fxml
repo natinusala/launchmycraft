@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.*?>
 
 <BorderPane maxHeight="550.0" maxWidth="850.0" minHeight="550.0" minWidth="850.0" prefHeight="550.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
-   <bottom>
+	<bottom>
       <StackPane id="loginPaneBackground" prefHeight="88.0" prefWidth="850.0" stylesheets="@style.css" BorderPane.alignment="CENTER">
          <children>
             <ImageView fitHeight="121.0" fitWidth="850.0" pickOnBounds="true">
