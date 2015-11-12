@@ -26,6 +26,9 @@
          <font>
             <Font size="16.0" />
          </font>
+         <padding>
+		    <Insets left="55.0" />
+		 </padding>
       </Label>
       <HBox alignment="CENTER_RIGHT" prefWidth="540.0" spacing="10.0">
          <children>
@@ -34,7 +37,7 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </JFXButton>
-            <JFXButton id="button1" defaultButton="true" style="-fx-background-color: transparent;" prefHeight="25.0" prefWidth="78.0" textFill="#0080ff">
+            <JFXButton id="button1" defaultButton="true" style="-fx-background-color: lightgrey;" prefHeight="25.0" prefWidth="78.0" >
                <font>
                   <Font name="System" size="12.0" />
                </font>
