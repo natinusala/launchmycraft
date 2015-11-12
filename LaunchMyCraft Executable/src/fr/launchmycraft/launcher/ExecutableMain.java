@@ -16,7 +16,6 @@ import javafx.scene.control.Button;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -28,6 +27,7 @@ import org.w3c.dom.html.HTMLAnchorElement;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
+import fr.launchmycraft.launcher.DialogFactory.DialogType;
 import fr.launchmycraft.library.GetResult;
 import fr.launchmycraft.library.util.Util;
 import fr.launchmycraft.library.util.network.HTTPDownloader;
@@ -71,11 +71,11 @@ public class ExecutableMain
 
 	public static void main(String[] args) throws IOException, JsonSyntaxException, URISyntaxException
 	{		
-		JOptionPane.showMessageDialog(null, "Aucun bootstrap détecté, lancement du launcher #" + DEFAULT_ID + " dans une nouvelle fenêtre");
-
+		DialogFactory.createDialog(null, DialogType.INFO, "Aucun bootstrap détecté, lancement du launcher #" + DEFAULT_ID + " dans une nouvelle fenêtre.").setVisible(true);
+		
 		JFrame frame = new JFrame("Minecraft");       
 		frame.setBackground(Color.DARK_GRAY);
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(850, 550);
 		frame.setResizable(false);
 
@@ -87,8 +87,10 @@ public class ExecutableMain
 	}
 
 	//Constructeur normal
-	public ExecutableMain(long bootstrapVersion, JFrame frame, long id,  boolean hasPaid, String identifier) throws JsonSyntaxException, FileNotFoundException, IOException, URISyntaxException
+	public ExecutableMain(long bootstrapVersion, JFrame frame, long id,  boolean hasPaid, String identifier)
 	{
+		Platform.setImplicitExit(false);
+		
 		ExecutableMain.frame = frame;
 		ExecutableMain.launcherId = id;
 		ExecutableMain.hasPaid = hasPaid;
@@ -99,8 +101,10 @@ public class ExecutableMain
 	}
 
 	//Constructeur legacy
-	public ExecutableMain(JFrame frame, long id, String newsUrl, long version, boolean hasPaid, String identifier) throws URISyntaxException
+	public ExecutableMain(JFrame frame, long id, String newsUrl, long version, boolean hasPaid, String identifier)
 	{
+		Platform.setImplicitExit(false);
+		
 		ExecutableMain.launcherId = id;
 
 		//On met du bidon parce que c'est final
@@ -264,7 +268,7 @@ public class ExecutableMain
 
 	void die(String message)
 	{
-		JOptionPane.showMessageDialog(null, message, "Erreur", JOptionPane.ERROR_MESSAGE);
+		DialogFactory.createDialog(executableMain.frame, DialogType.ERROR, message).setVisible(true);;
 		System.exit(0);
 	}
 	
@@ -286,7 +290,7 @@ public class ExecutableMain
         		catch (Exception ex) 
 				{
 					ex.printStackTrace();
-					JOptionPane.showMessageDialog(null, "Impossible de charger les options (" + ex.getLocalizedMessage() + ").", "Erreur", JOptionPane.ERROR_MESSAGE);
+					DialogFactory.createDialog(executableMain.frame, DialogType.ERROR, "Impossible de charger les options (" + ex.getLocalizedMessage() + ").");
 				}
             }
         });

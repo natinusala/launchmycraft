@@ -53,7 +53,8 @@
                               </VBox>
                               <VBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="161.0" spacing="8.0">
                                  <children>
-                                    <JFXButton id="optionsButton" prefHeight="25.0" prefWidth="206.0" style="-fx-background-color: lightgrey;" text="Options" />
+                                    <JFXButton id="optionsButton" prefHeight="25.0" prefWidth="206.0" style="-fx-background-color: lightgrey;" text="Options">
+                                    </JFXButton>
                                     <JFXButton prefHeight="25.0" prefWidth="235.0" style="-fx-background-color: #5BC236;" text="Se connecter" />
                                  </children>
                                  <opaqueInsets>
