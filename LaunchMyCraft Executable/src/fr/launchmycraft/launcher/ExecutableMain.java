@@ -43,6 +43,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.web.WebView;
+import javafx.scene.layout.StackPane;
 
 public class ExecutableMain 
 {
@@ -251,7 +252,9 @@ public class ExecutableMain
 			                {
 			                	((PasswordField) scene.lookup("#passwordField")).setPromptText("Mot de passe (facultatif)");
 			                }
-
+							
+							//Background
+							((StackPane) scene.lookup("#loginPaneBackground")).setStyle("-fx-background-image: url('" + Util.getThemeImage(launcherDetails.get("theme")) + "')");
 							//Pack
 							frame.pack();
 						}
@@ -274,7 +277,7 @@ public class ExecutableMain
 
 	void die(String message)
 	{
-		DialogFactory.createDialog(ExecutableMain.frame, DialogType.ERROR, message).setVisible(true);;
+		DialogFactory.createDialog(ExecutableMain.frame, DialogType.ERROR, message).setVisible(true);
 		System.exit(0);
 	}
 	

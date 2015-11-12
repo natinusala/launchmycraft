@@ -1,6 +1,5 @@
 #loginPaneBackground
 {
-    -fx-background-image: url("dirt.png");
     -fx-background-repeat: repeat;   
     -fx-background-position: 0 0;
 }

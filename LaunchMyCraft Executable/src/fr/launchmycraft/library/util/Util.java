@@ -107,13 +107,9 @@ public class Util {
 		return new File(OperatingSystem.getBaseWorkingDirectory(ExecutableMain.hasPaid, ExecutableMain.identifier), File.separator + "last.log");
 	}
 	
-	public static Image getThemeImage(String id) throws IOException
+	public static String getThemeImage(String id) throws IOException
 	{
-		URL url = new URL("https://launchmycraft.fr/assets/themes/" + id + ".png");
-		BufferedImage bimg = ImageIO.read(url);
-		Image img = bimg;
-		
-		return img;
+		return "https://launchmycraft.fr/assets/themes/" + id + ".png";
 	}
 	
 	public static File getBootstrapFile() throws URISyntaxException, ClassNotFoundException
