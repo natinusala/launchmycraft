@@ -11,7 +11,7 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="600.0" spacing="15.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox prefHeight="6.0" prefWidth="540.0" spacing="30.0">
+      <HBox prefHeight="6.0" prefWidth="540.0" spacing="20.0">
          <children>
             <ImageView id="iconImageView" fitHeight="41.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
             </ImageView>
@@ -34,15 +34,15 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </JFXButton>
-            <JFXButton id="button1" prefHeight="25.0" prefWidth="78.0" textFill="#0080ff">
+            <JFXButton id="button1" defaultButton="true" style="-fx-background-color: transparent;" prefHeight="25.0" prefWidth="78.0" textFill="#0080ff">
                <font>
-                  <Font name="System Bold" size="12.0" />
+                  <Font name="System" size="12.0" />
                </font>
             </JFXButton>
          </children>
       </HBox>
    </children>
    <padding>
-      <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
    </padding>
 </VBox>

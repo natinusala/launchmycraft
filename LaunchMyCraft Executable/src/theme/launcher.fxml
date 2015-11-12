@@ -55,7 +55,7 @@
                                  <children>
                                     <JFXButton id="optionsButton" prefHeight="25.0" prefWidth="206.0" style="-fx-background-color: lightgrey;" text="Options">
                                     </JFXButton>
-                                    <JFXButton prefHeight="25.0" prefWidth="235.0" style="-fx-background-color: #5BC236;" text="Se connecter" />
+                                    <JFXButton prefHeight="25.0" prefWidth="235.0" style="-fx-background-color: #5BC236;" defaultButton="true" text="Se connecter" />
                                  </children>
                                  <opaqueInsets>
                                     <Insets />

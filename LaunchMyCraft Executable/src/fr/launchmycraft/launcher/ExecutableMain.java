@@ -2,7 +2,6 @@ package fr.launchmycraft.launcher;
 
 import java.awt.Color;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -66,11 +65,12 @@ public class ExecutableMain
 	
 	private ExecutableMain executableMain = this;
 
-	//TODO Remplacer les JOptionPane.showMessageDialog
 	//TODO Entrée pour valider le formulaire
 
 	public static void main(String[] args) throws IOException, JsonSyntaxException, URISyntaxException
 	{		
+		Platform.setImplicitExit(false);
+		
 		DialogFactory.createDialog(null, DialogType.INFO, "Aucun bootstrap détecté, lancement du launcher #" + DEFAULT_ID + " dans une nouvelle fenêtre.").setVisible(true);
 		
 		JFrame frame = new JFrame("Minecraft");       
@@ -214,7 +214,8 @@ public class ExecutableMain
 							setupLogo((ImageView) scene.lookup("#serverLogoImageView"));
 							
 							//Creditshyperlink
-							((Hyperlink)scene.lookup("#creditsHyperlink")).setOnAction(new EventHandler<ActionEvent>()
+							Hyperlink creditsLink = (Hyperlink)scene.lookup("#creditsHyperlink");
+							creditsLink.setOnAction(new EventHandler<ActionEvent>()
 							{
 								@Override
 								public void handle(ActionEvent arg0) 
@@ -229,6 +230,11 @@ public class ExecutableMain
 									}
 								}							
 							});
+							
+							if (hasPaid)
+							{
+								creditsLink.setVisible(false);
+							}
 							
 							//Bouton des options
 							((Button) scene.lookup("#optionsButton")).setOnAction(new EventHandler<ActionEvent>()
@@ -268,7 +274,7 @@ public class ExecutableMain
 
 	void die(String message)
 	{
-		DialogFactory.createDialog(executableMain.frame, DialogType.ERROR, message).setVisible(true);;
+		DialogFactory.createDialog(ExecutableMain.frame, DialogType.ERROR, message).setVisible(true);;
 		System.exit(0);
 	}
 	
@@ -290,7 +296,7 @@ public class ExecutableMain
         		catch (Exception ex) 
 				{
 					ex.printStackTrace();
-					DialogFactory.createDialog(executableMain.frame, DialogType.ERROR, "Impossible de charger les options (" + ex.getLocalizedMessage() + ").");
+					DialogFactory.createDialog(ExecutableMain.frame, DialogType.ERROR, "Impossible de charger les options (" + ex.getLocalizedMessage() + ").");
 				}
             }
         });

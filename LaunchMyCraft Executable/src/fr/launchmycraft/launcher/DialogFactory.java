@@ -77,8 +77,6 @@ public class DialogFactory
 		//Bouton
 		Button button1 = ((Button) scene.lookup("#button1"));
 		button1.setText(button1Message);
-		button1.requestFocus();
-		button1.setDefaultButton(true);
 		button1.setOnAction(new EventHandler<ActionEvent>()
 		{
 			@Override
