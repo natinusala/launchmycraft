@@ -7,6 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
 
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="600.0" spacing="15.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
@@ -41,6 +42,9 @@
                <font>
                   <Font name="System" size="12.0" />
                </font>
+               <graphic>
+               		<MaterialIconView glyphName="CHECK" />
+               </graphic>
             </JFXButton>
          </children>
       </HBox>

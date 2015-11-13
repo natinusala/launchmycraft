@@ -9,6 +9,8 @@
 <?import com.jfoenix.controls.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
 
 <BorderPane maxHeight="550.0" maxWidth="850.0" minHeight="550.0" minWidth="850.0" prefHeight="550.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
 	<bottom>
@@ -43,20 +45,29 @@
                               <JFXProgressBar prefWidth="337.0" progress="0.3" />
                            </children>
                         </VBox>
-                        <HBox spacing="10.0">
+                        <HBox spacing="10.0" visible="false">
                            <children>
                               <VBox alignment="BOTTOM_LEFT" minHeight="0.0" prefHeight="100.0" prefWidth="273.0">
                                  <children>
-                                    <JFXTextField focusColor="GREEN" maxWidth="473.0" minWidth="202.0" prefHeight="31.0" prefWidth="473.0" promptText="Nom d'utilisateur" style="-fx-text-fill: #ffffff;" />
+                                    <JFXTextField focusColor="GREEN" maxWidth="473.0" minWidth="202.0" prefHeight="31.0" prefWidth="473.0" promptText="Nom d'utilisateur" style="-fx-text-fill: #ffffff;" >
+                                    </JFXTextField>
                                     <JFXPasswordField id="passwordField" focusColor="GREEN" promptText="Mot de passe" style="-fx-text-fill: #ffffff;" />
-                                    <Hyperlink id="creditsHyperlink" alignment="CENTER_RIGHT" prefHeight="23.0" prefWidth="272.0" text="Proposé par LaunchMyCraft.fr" textFill="#b2b2b2" underline="true" />
+                                    <Hyperlink id="creditsHyperlink" alignment="CENTER_RIGHT" prefHeight="23.0" prefWidth="272.0" text="Proposé par LaunchMyCraft.fr" textFill="#b2b2b2" underline="true" >
+                                    </Hyperlink>
                                  </children>
                               </VBox>
                               <VBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="161.0" spacing="8.0">
                                  <children>
                                     <JFXButton id="optionsButton" prefHeight="25.0" prefWidth="206.0" style="-fx-background-color: lightgrey;" text="Options">
+                                    	<graphic>
+						               		<MaterialIconView glyphName="SETTINGS" />
+						               </graphic>
                                     </JFXButton>
-                                    <JFXButton defaultButton="true" prefHeight="25.0" prefWidth="235.0" style="-fx-background-color: #5BC236;" text="Se connecter" />
+                                    <JFXButton defaultButton="true" prefHeight="25.0" prefWidth="235.0" style="-fx-background-color: #5BC236;" text="Se connecter">
+                                    	<graphic>
+						               		<MaterialIconView glyphName="CHECK" />
+						               </graphic>
+                                    </JFXButton>
                                  </children>
                                  <opaqueInsets>
                                     <Insets />
@@ -64,7 +75,7 @@
                               </VBox>
                            </children>
                         </HBox>
-                        <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" visible="false">
+                        <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" visible="true">
                            <children>
                               <ImageView fitHeight="79.0" fitWidth="102.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -85,11 +96,23 @@
                                     </HBox>
                                     <HBox spacing="5.0">
                                        <children>
-                                          <JFXButton prefHeight="25.0" prefWidth="130.0" style="-fx-background-color: lightgrey;" text="Se déconnecter" />
-                                          <JFXButton prefHeight="25.0" prefWidth="131.0" style="-fx-background-color: lightgrey;" text="Options" />
+                                          <JFXButton prefHeight="25.0" prefWidth="130.0" style="-fx-background-color: lightgrey;" text="Se déconnecter" >
+                                          	<graphic>
+							               		<MaterialDesignIconView glyphName="LOGOUT" />
+							                </graphic>
+                                          </JFXButton>
+                                          <JFXButton prefHeight="25.0" prefWidth="131.0" style="-fx-background-color: lightgrey;" text="Options" >
+                                          	<graphic>
+							               		<MaterialIconView glyphName="SETTINGS" />
+							                </graphic>
+                                          </JFXButton>
                                        </children>
                                     </HBox>
-                                    <JFXButton defaultButton="true" prefHeight="9.0" prefWidth="248.0" style="-fx-background-color: #5BC236;" text="Jouer" />
+                                    <JFXButton defaultButton="true" prefHeight="9.0" prefWidth="248.0" style="-fx-background-color: #5BC236;" text="Jouer" >
+                                    	<graphic>
+						               		<MaterialIconView glyphName="CHECK" />
+						               </graphic>
+                                    </JFXButton>
                                  </children>
                               </VBox>
                            </children>
