@@ -16,6 +16,10 @@ import javafx.scene.control.Button;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
+import com.jfoenix.controls.JFXDialog.DialogTransition;
+
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.events.Event;
@@ -242,7 +246,7 @@ public class ExecutableMain
 							{
 								@Override
 								public void handle(ActionEvent event) 
-								{
+								{			
 									showOptions();		
 								}							
 							});
@@ -251,8 +255,8 @@ public class ExecutableMain
 							if (Util.isCrackedAllowed())
 			                {
 			                	((PasswordField) scene.lookup("#passwordField")).setPromptText("Mot de passe (facultatif)");
-			                }
-							
+			                }		
+														
 							//Background
 							((StackPane) scene.lookup("#loginPaneBackground")).setStyle("-fx-background-image: url('" + Util.getThemeImage(launcherDetails.get("theme")) + "')");
 							//Pack
