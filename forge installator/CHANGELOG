@@ -1,0 +1,29 @@
+#=======================================================================#
+#																		#
+#	Générateur d'archive Forge - LaunchMyCraft							#
+#																		#
+#	Description	: Génération d'une archive Minecraft avec				#
+#				  Forge pour l'intégration avec le launcher				#
+#				  LaunchMyCraft											#
+#																		#
+#	Auteur 		: Natinusala / Apokalysme - forum.launchmycraft.fr		#
+#																		#
+#	Version		: 2.4													#
+#																		#
+#	Changelog	:														#
+#	- 01/12/2015 - 2.4 - Apokalysme - Gestion des chemins comportant	#
+#									des espaces							#
+#									- Cas de Forge 11.15 pour MC 1.8.8	#
+#									- Factorisation du code				#
+#	- 10/07/2015 - 2.3 - Apokalysme - Génération d'un log				#
+#									- Protection de l'exécution depuis	#
+#									l'archive ZIP						#
+#	- 29/06/2015 - 2.2 - Apokalysme - Complément de la 2.0 pour Forge	#
+#									10.13.3								#
+#									- Affichage de la version			#
+#	- 25/06/2015 - 2.1 - Apokalysme - Gestion des versions Forge		#
+#									pour Minecraft 1.8.					#
+#	- 21/06/2015 - 2.0 - Apokalysme - Gestion des versions Forge		#
+#									10.13.4 et supérieures.				#
+#																		#
+#=======================================================================#

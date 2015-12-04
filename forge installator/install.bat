@@ -1,33 +1,26 @@
 @echo off
 rem #=======================================================================#
+rem #																		#
 rem #	Générateur d'archive Forge - LaunchMyCraft							#
 rem #																		#
 rem #	Description	: Génération d'une archive Minecraft avec				#
 rem #				  Forge pour l'intégration avec le launcher				#
 rem #				  LaunchMyCraft											#
-rem #	Auteur 		: Natinusala - forum.launchmycraft.fr					#
-rem #	Version		: 2.3													#
-rem #	Changelog	:														#
-rem #	- 21/06/2015 - 2.0 - Apokalysme - Gestion des versions Forge		#
-rem #									10.13.4 et supérieures.				#
-rem #	- 25/06/2015 - 2.1 - Apokalysme - Gestion des versions Forge		#
-rem #									pour Minecraft 1.8.					#
-rem #	- 29/06/2015 - 2.2 - Apokalysme - Complément de la 2.0 pour Forge	#
-rem #									10.13.3								#
-rem #									- Affichage de la version			#
-rem #	- 10/07/2015 - 2.3 - Apokalysme - Génération d'un log				#
-rem #									- Protection de l'exécution depuis	#
-rem #									l'archive ZIP						#
+rem #																		#
+rem #	Auteur 		: Natinusala / Apokalysme - forum.launchmycraft.fr		#
+rem #																		#
+rem #	Version		: 2.4													#
+rem #																		#
 rem #=======================================================================#
 
 rem ----- Création d'un dossier dans %appdata% pour loguer même dans le cas
 rem ----- d'une exécution depuis l'archive ZIP
-if not exist %appdata%\LaunchMyCraftGenerator\nul mkdir %appdata%\LaunchMyCraftGenerator
-set GEN_LOGFILE=%appdata%\LaunchMyCraftGenerator\generator.log
+if not exist "%appdata%\LaunchMyCraftGenerator\nul" mkdir "%appdata%\LaunchMyCraftGenerator"
+set GEN_LOGFILE="%appdata%\LaunchMyCraftGenerator\generator.log"
 
 rem ----- Début du script
-echo == Préparateur d'archives Forge pour LaunchMyCraft - Version 2.3 ==
-echo == Préparateur d'archives Forge pour LaunchMyCraft - Version 2.3 == > %GEN_LOGFILE%
+echo == Préparateur d'archives Forge pour LaunchMyCraft - Version 2.4 ==
+echo == Préparateur d'archives Forge pour LaunchMyCraft - Version 2.4 == > %GEN_LOGFILE%
 
 rem ----- Vérification du contenu du dossier courant
 echo Dossier courant : %CD%  >> %GEN_LOGFILE%
@@ -87,8 +80,12 @@ for /f "delims=. tokens=1" %%a IN ("%ForgeName%") DO set FMAJOR=%%a
 for /f "delims=. tokens=2" %%b IN ("%ForgeName%") DO set fminor=%%b
 for /f "delims=. tokens=3" %%c IN ("%ForgeName%") DO set fpatch=%%c
 
-if %FMAJOR% EQU 10 if %fminor% GEQ 13 if %fpatch% GEQ 3 goto POST17
-if %FMAJOR% GEQ 11 goto POST18
+echo Version detectee %FMAJOR%-%fminor%-%fpatch% | tools\tee\tee.exe -a %GEN_LOGFILE%
+
+if %FMAJOR% EQU 10 if %fminor% GEQ 13 if %fpatch% GEQ 3 goto P10133
+if %FMAJOR% EQU 11 if %fminor% EQU 14 goto P1114
+if %FMAJOR% GEQ 11 if %fminor% GEQ 15 goto P1115
+
 
 rem ----- Cas des versions 10.13.2 et plus anciennes
 echo == Forge Version 10.13.2 et plus anciennes | tools\tee\tee.exe -a %GEN_LOGFILE%
@@ -99,9 +96,38 @@ rmdir /s /q ".\generated_files\versions\%MinecraftName%-Forge%ForgeName%"
 del ".\generated_files\launcher_profiles.json" /Q
 goto ZIP
 
-:POST17
+
+:P10133
 rem ----- Cas des versions 10.13.3 et supérieures
 echo == Forge Version 10.13.3 et supérieures | tools\tee\tee.exe -a %GEN_LOGFILE%
+goto CASE2
+
+:P1114
+rem ----- Cas des versions 11.14
+echo == Forge Version 11.14 | tools\tee\tee.exe -a %GEN_LOGFILE%
+mkdir ".\generated_files\versions\release"
+goto CASE1
+
+:P1115
+rem ----- Cas des versions 11.15 et supérieures
+echo == Forge Version 11.15 et supérieures | tools\tee\tee.exe -a %GEN_LOGFILE%
+goto CASE3
+
+
+:CASE1
+rem ----- Cas de traitement classique
+tools\sed\sed.exe -e "s/id\".*/id\":\ \"release\",/" -i ".\generated_files\versions\%MinecraftName%\%MinecraftName%.json"
+move ".\generated_files\versions\%MinecraftName%\%MinecraftName%.json" ".\generated_files\versions\release"
+rename ".\generated_files\versions\release\%MinecraftName%.json" "release.json"
+copy ".\generated_files\versions\%MinecraftName%-Forge%ForgeName%\%MinecraftName%-Forge%ForgeName%.json" ".\generated_files\versions\%MinecraftName%\%MinecraftName%.json"
+tools\sed\sed.exe -e "s/id\".*/id\":\ \"%MinecraftName%\",/" -i ".\generated_files\versions\%MinecraftName%\%MinecraftName%.json"
+tools\sed\sed.exe -e "s/inheritsFrom.*/inheritsFrom\":\ \"release\",/" -i ".\generated_files\versions\%MinecraftName%\%MinecraftName%.json"
+rmdir /s /q ".\generated_files\versions\%MinecraftName%-Forge%ForgeName%"
+del ".\generated_files\launcher_profiles.json" /Q
+goto ZIP
+
+
+:CASE2
 mkdir ".\generated_files\versions\release"
 tools\sed\sed.exe -e "s/id\".*/id\":\ \"release\",/" -i ".\generated_files\versions\%MinecraftName%\%MinecraftName%.json"
 move ".\generated_files\versions\%MinecraftName%\%MinecraftName%.json" ".\generated_files\versions\release"
@@ -113,19 +139,21 @@ rmdir /s /q ".\generated_files\versions\%MinecraftName%-Forge%ForgeName%-%Minecr
 del ".\generated_files\launcher_profiles.json" /Q
 goto ZIP
 
-:POST18
-rem ----- Cas des versions 11 et supérieures
-echo == Forge Version 11 et supérieures | tools\tee\tee.exe -a %GEN_LOGFILE%
+
+:CASE3
+rem ----- Cas de traitement avec ajout du numero de version de MC deux fois dans le nom du dossier et du fichier
 mkdir ".\generated_files\versions\release"
 tools\sed\sed.exe -e "s/id\".*/id\":\ \"release\",/" -i ".\generated_files\versions\%MinecraftName%\%MinecraftName%.json"
 move ".\generated_files\versions\%MinecraftName%\%MinecraftName%.json" ".\generated_files\versions\release"
 rename ".\generated_files\versions\release\%MinecraftName%.json" "release.json"
-copy ".\generated_files\versions\%MinecraftName%-Forge%ForgeName%\%MinecraftName%-Forge%ForgeName%.json" ".\generated_files\versions\%MinecraftName%\%MinecraftName%.json"
+rem ----- on peut voir l'ajout du numero de version de MC une troisieme fois dans le nom du dossier et du fichier
+copy ".\generated_files\versions\%MinecraftName%-Forge%MinecraftName%-%ForgeName%-%MinecraftName%\%MinecraftName%-Forge%MinecraftName%-%ForgeName%-%MinecraftName%.json" ".\generated_files\versions\%MinecraftName%\%MinecraftName%.json"
 tools\sed\sed.exe -e "s/id\".*/id\":\ \"%MinecraftName%\",/" -i ".\generated_files\versions\%MinecraftName%\%MinecraftName%.json"
 tools\sed\sed.exe -e "s/inheritsFrom.*/inheritsFrom\":\ \"release\",/" -i ".\generated_files\versions\%MinecraftName%\%MinecraftName%.json"
-rmdir /s /q ".\generated_files\versions\%MinecraftName%-Forge%ForgeName%"
+rmdir /s /q ".\generated_files\versions\%MinecraftName%-Forge%MinecraftName%-%ForgeName%-%MinecraftName%"
 del ".\generated_files\launcher_profiles.json" /Q
 goto ZIP
+
 
 :ZIP
 echo == Préparation de l'archive... | tools\tee\tee.exe -a %GEN_LOGFILE%
