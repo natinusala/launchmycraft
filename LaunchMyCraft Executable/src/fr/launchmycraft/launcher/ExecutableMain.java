@@ -9,16 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.Button;
-
-import javax.swing.JDialog;
 import javax.swing.JFrame;
-
-import com.jfoenix.controls.JFXDialog;
-import com.jfoenix.controls.JFXDialogLayout;
-import com.jfoenix.controls.JFXDialog.DialogTransition;
 
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -29,8 +20,14 @@ import org.w3c.dom.html.HTMLAnchorElement;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXTabPane;
+import com.jfoenix.controls.JFXTextField;
 
 import fr.launchmycraft.launcher.DialogFactory.DialogType;
+import fr.launchmycraft.library.Configuration;
 import fr.launchmycraft.library.GetResult;
 import fr.launchmycraft.library.util.Util;
 import fr.launchmycraft.library.util.network.HTTPDownloader;
@@ -44,10 +41,13 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.control.PasswordField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.web.WebView;
 import javafx.scene.layout.StackPane;
+import javafx.scene.web.WebView;
 
 public class ExecutableMain 
 {
@@ -70,13 +70,13 @@ public class ExecutableMain
 	
 	private ExecutableMain executableMain = this;
 
-	//TODO Entrée pour valider le formulaire
+	//TODO EntrÃ©e pour valider le formulaire
 
 	public static void main(String[] args) throws IOException, JsonSyntaxException, URISyntaxException
 	{		
 		Platform.setImplicitExit(false);
 		
-		DialogFactory.createDialog(null, DialogType.INFO, "Aucun bootstrap détecté, lancement du launcher #" + DEFAULT_ID + " dans une nouvelle fenêtre.").setVisible(true);
+		DialogFactory.showDialog(DialogType.INFO, "Aucun bootstrap dÃ©tectÃ©, lancement du launcher #" + DEFAULT_ID + " dans une nouvelle fenÃªtre.");
 		
 		JFrame frame = new JFrame("Minecraft");       
 		frame.setBackground(Color.DARK_GRAY);
@@ -101,7 +101,7 @@ public class ExecutableMain
 		ExecutableMain.hasPaid = hasPaid;
 		ExecutableMain.identifier = identifier;
 
-		//Exécution du worker
+		//ExÃ©cution du worker
 		new Worker(bootstrapVersion).start();
 	}
 
@@ -116,7 +116,7 @@ public class ExecutableMain
 		ExecutableMain.hasPaid = hasPaid;
 		ExecutableMain.identifier = identifier;
 
-		//Exécution du worker sans version pour qu'il le mette à jour direct
+		//ExÃ©cution du worker sans version pour qu'il le mette Ã  jour direct
 		new Worker().start();
 	}
 
@@ -137,17 +137,17 @@ public class ExecutableMain
 		{
 			try
 			{
-				//Récupération de la dernière version
+				//RÃ©cupÃ©ration de la derniÃ¨re version
 				long lastBootstrapVersion = Long.parseLong(Util.doGET(Util.getLastBootstrapVersionUrl(), null));
 
 				if (!noBootstrap && lastBootstrapVersion != bootstrapVersion)
 				{
-					//Mise à jour du bootstrap		
+					//Mise Ã  jour du bootstrap		
 					File bootstrapFile = Util.getBootstrapFile();
 
 					if (bootstrapFile.isFile())
 					{
-						//On télécharge l'updater
+						//On tÃ©lÃ©charge l'updater
 						File updaterFile = File.createTempFile("LMCupdater" + Math.random(), ".tmp");
 						new HTTPDownloader("https://launchmycraft.fr/getlauncher/bootstrapupdater", updaterFile).downloadFile();
 
@@ -159,7 +159,7 @@ public class ExecutableMain
 					}
 				}
 
-				//Chargement des données du launcher
+				//Chargement des donnÃ©es du launcher
 				GetResult result = new Gson().fromJson(Util.doGET(Util.getLauncherGetUrl(launcherId), null), GetResult.class);
 				launcherDetails = result.data;
 
@@ -183,7 +183,7 @@ public class ExecutableMain
 				}
 
 				//La newsframe			
-				//On met le remote en priorité
+				//On met le remote en prioritÃ©
 				if (launcherDetails.containsKey("websiteurl"))
 				{
 					newsUrl = launcherDetails.get("websiteurl");				
@@ -246,8 +246,16 @@ public class ExecutableMain
 							{
 								@Override
 								public void handle(ActionEvent event) 
-								{			
-									showOptions();		
+								{
+									try
+									{
+										showOptions(scene);	
+									}
+									catch (Exception ex)
+									{
+										DialogFactory.showDialog(DialogType.ERROR, "Impossible d'afficher le menu des options : " + ex.getLocalizedMessage());
+									}
+										
 								}							
 							});
 							
@@ -255,8 +263,8 @@ public class ExecutableMain
 							if (Util.isCrackedAllowed())
 			                {
 			                	((PasswordField) scene.lookup("#passwordField")).setPromptText("Mot de passe (facultatif)");
-			                }		
-														
+			                }
+							
 							//Background
 							((StackPane) scene.lookup("#loginPaneBackground")).setStyle("-fx-background-image: url('" + Util.getThemeImage(launcherDetails.get("theme")) + "')");
 							//Pack
@@ -281,32 +289,60 @@ public class ExecutableMain
 
 	void die(String message)
 	{
-		DialogFactory.createDialog(ExecutableMain.frame, DialogType.ERROR, message).setVisible(true);
+		DialogFactory.showDialog(DialogType.ERROR, message);
 		System.exit(0);
 	}
 	
-	void showOptions() //TODO Changer ça pour les optiosn en JavaFX
+	void showOptions(Scene scene) throws Exception
 	{
-		javax.swing.SwingUtilities.invokeLater(new Runnable() 
+		Configuration configuration = Util.getConfiguration();
+		
+		JFXDialog dialog = (JFXDialog) scene.lookup("#dialog");
+		dialog.setDialogContainer((StackPane) scene.lookup("#dialogParent"));
+		
+		JFXTabPane tabPane = (JFXTabPane) scene.lookup("#optionsTabPane");
+
+		//Initialisation
+		tabPane.getSelectionModel().select(0);
+		
+		//JavaPath
+		JFXCheckBox javaPathCheckBox = (JFXCheckBox) scene.lookup("#javaPathCheckBox");
+		JFXTextField javaPathTextField = (JFXTextField) scene.lookup("#javaPathTextField");
+		
+		javaPathCheckBox.setOnAction(new EventHandler<ActionEvent>() 
 		{
-            public void run() 
-            {       		
-        		try 
-        		{
-        			JDialog optionsDialog = new JDialog(frame, "Options", true);
-					optionsDialog.add(new OptionsPanel(executableMain));
-	        		optionsDialog.setResizable(false);
-	        		optionsDialog.pack();
-	        		optionsDialog.setLocationRelativeTo(frame);
-	        		optionsDialog.setVisible(true);
-				} 
-        		catch (Exception ex) 
-				{
-					ex.printStackTrace();
-					DialogFactory.createDialog(ExecutableMain.frame, DialogType.ERROR, "Impossible de charger les options (" + ex.getLocalizedMessage() + ").");
-				}
-            }
-        });
+			@Override
+			public void handle(ActionEvent event) 
+			{
+				javaPathTextField.setDisable(!javaPathCheckBox.isSelected());
+			}
+		});
+		
+		if (configuration.javaPath.get(launcherId) == null)
+	    {	
+			javaPathTextField.setText(OperatingSystem.getCurrentPlatform().getJavaDir());
+			javaPathTextField.setDisable(true);
+			javaPathCheckBox.setSelected(false);
+	    }
+	    else
+	    {
+	    	javaPathTextField.setText(configuration.javaPath.get(launcherId));
+			javaPathTextField.setDisable(false);
+			javaPathCheckBox.setSelected(true);
+	    }
+		
+		//Listeners
+		JFXButton button = (JFXButton) scene.lookup("#optionsCancel");
+		button.setOnAction(new EventHandler<ActionEvent>() 
+		{
+			@Override
+			public void handle(ActionEvent event) 
+			{
+				dialog.close();
+			}
+		});
+
+		dialog.show((StackPane) scene.lookup("#dialogParent"));
 	}
 
 	void setupLogo(ImageView view)

@@ -14,119 +14,132 @@
 <?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
 <?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
 
-<BorderPane maxHeight="550.0" maxWidth="850.0" minHeight="550.0" minWidth="850.0" prefHeight="550.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
-	<bottom>
-      <StackPane id="loginPaneBackground" prefHeight="88.0" prefWidth="850.0" stylesheets="@style.css" BorderPane.alignment="CENTER">
-         <children>
-            <ImageView fitHeight="121.0" fitWidth="850.0" pickOnBounds="true">
-               <image>
-                  <Image url="@gradient.png" />
-               </image>
-            </ImageView>
-            <HBox alignment="CENTER_RIGHT" prefWidth="850.0" spacing="10.0" style="-fx-border-color: #66666666 transparent transparent transparent;" stylesheets="@style.css">
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <padding>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-               </padding>
+
+<StackPane id="dialogParent" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <JFXDialog id="dialog">
+         <JFXDialogLayout maxWidth="800">
+            <padding><Insets top="0" right="10" bottom="-10" left="10"/></padding>
+			<body>
+				<fx:include source="options.fxml"/>
+			</body>
+		</JFXDialogLayout>
+      </JFXDialog>
+      <BorderPane maxHeight="550.0" maxWidth="850.0" minHeight="550.0" minWidth="850.0" prefHeight="550.0" prefWidth="850.0">
+      	<bottom>
+            <StackPane id="loginPaneBackground" prefHeight="88.0" prefWidth="850.0" stylesheets="@style.css" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView id="serverLogoImageView" fitHeight="39.0" fitWidth="398.0" pickOnBounds="true" preserveRatio="true" />
-                  <Pane prefHeight="100.0" prefWidth="123.0" />
-                  <StackPane prefWidth="406.0">
+                  <ImageView fitHeight="121.0" fitWidth="850.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@gradient.png" />
+                     </image>
+                  </ImageView>
+                  <HBox alignment="CENTER_RIGHT" prefWidth="850.0" spacing="10.0" style="-fx-border-color: #66666666 transparent transparent transparent;" stylesheets="@style.css">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
                      <children>
-                        <VBox alignment="CENTER_LEFT" prefHeight="22.0" prefWidth="387.0" spacing="2.0" visible="false">
+                        <ImageView id="serverLogoImageView" fitHeight="39.0" fitWidth="398.0" pickOnBounds="true" preserveRatio="true" />
+                        <Pane prefHeight="100.0" prefWidth="123.0" />
+                        <StackPane prefWidth="406.0">
                            <children>
-                              <HBox spacing="5.0">
+                              <VBox alignment="CENTER_LEFT" prefHeight="22.0" prefWidth="387.0" spacing="2.0" visible="false">
                                  <children>
-                                    <JFXSpinner alignment="BOTTOM_CENTER" radius="6.0" />
-                                    <Label alignment="BOTTOM_CENTER" prefHeight="23.0" prefWidth="190.0" text="Téléchargement des ressources en cours..." textFill="WHITE" />
-                                    <Label alignment="BOTTOM_RIGHT" prefHeight="24.0" prefWidth="139.0" text="(14/100)" textFill="#b2b2b2" />
-                                 </children>
-                              </HBox>
-                              <JFXProgressBar prefWidth="337.0" progress="0.3" />
-                           </children>
-                        </VBox>
-                        <HBox spacing="10.0">
-                           <children>
-                              <VBox alignment="BOTTOM_LEFT" minHeight="0.0" prefHeight="100.0" prefWidth="273.0">
-                                 <children>
-                                    <JFXTextField focusColor="GREEN" maxWidth="473.0" minWidth="202.0" prefHeight="31.0" prefWidth="473.0" promptText="Nom d'utilisateur" style="-fx-text-fill: #ffffff;">
-                                    </JFXTextField>
-                                    <JFXPasswordField id="passwordField" focusColor="GREEN" promptText="Mot de passe" style="-fx-text-fill: #ffffff;" />
-                                    <Hyperlink id="creditsHyperlink" alignment="CENTER_RIGHT" prefHeight="23.0" prefWidth="272.0" text="Proposé par LaunchMyCraft.fr" textFill="#b2b2b2" underline="true">
-                                    </Hyperlink>
-                                 </children>
-                              </VBox>
-                              <VBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="161.0" spacing="8.0">
-                                 <children>
-                                    <JFXButton id="optionsButton" prefHeight="25.0" prefWidth="206.0" style="-fx-background-color: lightgrey;" text="Options">
-                                    	<graphic>
-						               		<MaterialIconView glyphName="SETTINGS" />
-						               </graphic>
-                                    </JFXButton>
-                                    <JFXButton defaultButton="true" prefHeight="25.0" prefWidth="235.0" style="-fx-background-color: #5BC236;" text="Se connecter">
-                                    	<graphic>
-						               		<MaterialIconView glyphName="CHECK" />
-						               </graphic>
-                                    </JFXButton>
-                                 </children>
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
-                              </VBox>
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" visible="false">
-                           <children>
-                              <ImageView fitHeight="79.0" fitWidth="102.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@helm.png" />
-                                 </image>
-                              </ImageView>
-                              <VBox prefHeight="79.0" prefWidth="291.0" spacing="5.0">
-                                 <children>
-                                    <HBox spacing="3.0">
-                                       <children>
-                                          <Label prefHeight="0.0" text="Connecté en tant que" textFill="#b2b2b2" />
-                                          <Label prefHeight="0.0" prefWidth="58.0" text="natinusala" textFill="WHITE">
-                                             <font>
-                                                <Font name="System Bold" size="12.0" />
-                                             </font>
-                                          </Label>
-                                       </children>
-                                    </HBox>
                                     <HBox spacing="5.0">
                                        <children>
-                                          <JFXButton prefHeight="25.0" prefWidth="130.0" style="-fx-background-color: lightgrey;" text="Se déconnecter">
-                                          	<graphic>
-							               		<MaterialDesignIconView glyphName="LOGOUT" />
-							                </graphic>
-                                          </JFXButton>
-                                          <JFXButton prefHeight="25.0" prefWidth="131.0" style="-fx-background-color: lightgrey;" text="Options">
-                                          	<graphic>
-							               		<MaterialIconView glyphName="SETTINGS" />
-							                </graphic>
-                                          </JFXButton>
+                                          <JFXSpinner alignment="BOTTOM_CENTER" radius="6.0" />
+                                          <Label alignment="BOTTOM_CENTER" prefHeight="23.0" prefWidth="190.0" text="Téléchargement des ressources en cours..." textFill="WHITE" />
+                                          <Label alignment="BOTTOM_RIGHT" prefHeight="24.0" prefWidth="139.0" text="(14/100)" textFill="#b2b2b2" />
                                        </children>
                                     </HBox>
-                                    <JFXButton defaultButton="true" prefHeight="9.0" prefWidth="248.0" style="-fx-background-color: #5BC236;" text="Jouer">
-                                    	<graphic>
-						               		<MaterialIconView glyphName="CHECK" />
-						               </graphic>
-                                    </JFXButton>
+                                    <JFXProgressBar prefWidth="337.0" progress="0.3" />
                                  </children>
                               </VBox>
+                              <HBox spacing="10.0">
+                                 <children>
+                                    <VBox alignment="BOTTOM_LEFT" minHeight="0.0" prefHeight="100.0" prefWidth="273.0">
+                                       <children>
+                                          <JFXTextField focusColor="GREEN" maxWidth="473.0" minWidth="202.0" prefHeight="31.0" prefWidth="473.0" promptText="Nom d'utilisateur" style="-fx-text-fill: #ffffff;">
+                                    </JFXTextField>
+                                          <JFXPasswordField id="passwordField" focusColor="GREEN" promptText="Mot de passe" style="-fx-text-fill: #ffffff;" />
+                                          <Hyperlink id="creditsHyperlink" alignment="CENTER_RIGHT" prefHeight="23.0" prefWidth="272.0" text="Proposé par LaunchMyCraft.fr" textFill="#b2b2b2" underline="true">
+                                    </Hyperlink>
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="161.0" spacing="8.0">
+                                       <children>
+                                          <JFXButton id="optionsButton" prefHeight="25.0" prefWidth="206.0" style="-fx-background-color: lightgrey;" text="Options">
+                                          	<graphic>
+      						               		<MaterialIconView glyphName="SETTINGS" />
+      						               </graphic>
+                                          </JFXButton>
+                                          <JFXButton defaultButton="true" prefHeight="25.0" prefWidth="235.0" style="-fx-background-color: #5BC236;" text="Se connecter">
+                                          	<graphic>
+      						               		<MaterialIconView glyphName="CHECK" />
+      						               </graphic>
+                                          </JFXButton>
+                                       </children>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" visible="false">
+                                 <children>
+                                    <ImageView fitHeight="79.0" fitWidth="102.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@helm.png" />
+                                       </image>
+                                    </ImageView>
+                                    <VBox prefHeight="79.0" prefWidth="291.0" spacing="5.0">
+                                       <children>
+                                          <HBox spacing="3.0">
+                                             <children>
+                                                <Label prefHeight="0.0" text="Connecté en tant que" textFill="#b2b2b2" />
+                                                <Label prefHeight="0.0" prefWidth="58.0" text="natinusala" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="System Bold" size="12.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                          <HBox spacing="5.0">
+                                             <children>
+                                                <JFXButton prefHeight="25.0" prefWidth="130.0" style="-fx-background-color: lightgrey;" text="Se déconnecter">
+                                                	<graphic>
+      							               		<MaterialDesignIconView glyphName="LOGOUT" />
+      							                </graphic>
+                                                </JFXButton>
+                                                <JFXButton prefHeight="25.0" prefWidth="131.0" style="-fx-background-color: lightgrey;" text="Options">
+                                                	<graphic>
+      							               		<MaterialIconView glyphName="SETTINGS" />
+      							                </graphic>
+                                                </JFXButton>
+                                             </children>
+                                          </HBox>
+                                          <JFXButton defaultButton="true" prefHeight="9.0" prefWidth="248.0" style="-fx-background-color: #5BC236;" text="Jouer">
+                                          	<graphic>
+      						               		<MaterialIconView glyphName="CHECK" />
+      						               </graphic>
+                                          </JFXButton>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>               
                            </children>
-                        </HBox>               
+                        </StackPane>
                      </children>
-                  </StackPane>
+                  </HBox>
                </children>
-            </HBox>
-         </children>
-      </StackPane>
-   </bottom>
-   <center>
-      <WebView id="newsWebView" prefHeight="429.0" prefWidth="743.0" BorderPane.alignment="CENTER" />
-   </center>
-</BorderPane>
+            </StackPane>
+         </bottom>
+         <center>
+            <WebView id="newsWebView" prefHeight="429.0" prefWidth="743.0" BorderPane.alignment="CENTER" />
+         </center>
+      </BorderPane>
+   </children>
+</StackPane>
