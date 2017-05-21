@@ -9,7 +9,7 @@ rem #				  LaunchMyCraft											#
 rem #																		#
 rem #	Auteur 		: Natinusala / Apokalysme - forum.launchmycraft.fr		#
 rem #																		#
-rem #	Version		: 2.5													#
+rem #	Version		: 2.6													#
 rem #																		#
 rem #=======================================================================#
 
@@ -19,8 +19,8 @@ if not exist "%appdata%\LaunchMyCraftGenerator\nul" mkdir "%appdata%\LaunchMyCra
 set GEN_LOGFILE="%appdata%\LaunchMyCraftGenerator\generator.log"
 
 rem ----- Début du script
-echo == Préparateur d'archives Forge pour LaunchMyCraft - Version 2.4 ==
-echo == Préparateur d'archives Forge pour LaunchMyCraft - Version 2.4 == > %GEN_LOGFILE%
+echo == Préparateur d'archives Forge pour LaunchMyCraft - Version 2.6 ==
+echo == Préparateur d'archives Forge pour LaunchMyCraft - Version 2.6 == > %GEN_LOGFILE%
 
 rem ----- Vérification du contenu du dossier courant
 echo Dossier courant : %CD%  >> %GEN_LOGFILE%
@@ -111,7 +111,8 @@ goto CASE1
 :CASE1
 rem ----- Cas de traitement classique
 mkdir ".\generated_files\versions\release"
-tools\sed\sed.exe -e "s/id\".*/id\":\ \"release\",/" -i ".\generated_files\versions\%MinecraftName%\%MinecraftName%.json"
+tools\sed\sed.exe -e "s/id\":\ \"%MinecraftName%\"/id\":\ \"release\"/" -i ".\generated_files\versions\%MinecraftName%\%MinecraftName%.json"
+tools\sed\sed.exe -e "s/id\":\"%MinecraftName%\"/id\":\"release\"/" -i ".\generated_files\versions\%MinecraftName%\%MinecraftName%.json"
 move ".\generated_files\versions\%MinecraftName%\%MinecraftName%.json" ".\generated_files\versions\release"
 rename ".\generated_files\versions\release\%MinecraftName%.json" "release.json"
 

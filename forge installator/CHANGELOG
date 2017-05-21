@@ -8,11 +8,14 @@
 #																		#
 #	Auteur 		: Natinusala / Apokalysme - forum.launchmycraft.fr		#
 #																		#
-#	Version		: 2.5													#
+#	Version		: 2.6													#
 #																		#
 #	Changelog	:														#
+#	- 21/05/2017 - 2.6 - Apokalysme - Amélioration de la gestion		#
+#									des chemins	pour les versions Forge	#
+#									10.13.3 et supérieures				#
 #	- 11/01/2016 - 2.5 - Apokalysme - Gestion générique des chemins		#
-#									Forge pour les version 10.13.3 et	#
+#									Forge pour les versions 10.13.3 et	#
 #									supérieures							#
 #	- 01/12/2015 - 2.4 - Apokalysme - Gestion des chemins comportant	#
 #									des espaces							#
